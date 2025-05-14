@@ -1,5 +1,17 @@
 steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'gcr.io/mywebsitebot-dkju/zoni', '.']
-images:
-  - 'gcr.io/mywebsitebot-dkju/zoni'
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/mywebsitebot-dkju/zoni']
+
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      [
+        'run', 'deploy', 'zoni',
+        '--image', 'gcr.io/mywebsitebot-dkju/zoni',
+        '--platform', 'managed',
+        '--region', 'us-central1',
+        '--allow-unauthenticated'
+      ]
