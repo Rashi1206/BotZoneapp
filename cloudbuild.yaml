@@ -4,11 +4,13 @@ options:
 steps:
   # Step 1: Build Docker image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/mywebsitebot-dkju/zoni', '.']
+    args: ['build', '--no-cache', '--pull', '-t', 'gcr.io/mywebsitebot-dkju/zoni', '.']
+    id: Build Docker Image
 
   # Step 2: Push Docker image to Container Registry
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'gcr.io/mywebsitebot-dkju/zoni']
+    id: Push Docker Image
 
   # Step 3: Deploy to Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
@@ -21,3 +23,4 @@ steps:
         '--region', 'us-central1',
         '--allow-unauthenticated'
       ]
+    id: Deploy to Cloud Run
