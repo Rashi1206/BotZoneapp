@@ -1,4 +1,4 @@
-# 🤖 Zoni – Gemini-powered Chatbot for Botzone
+# 🤖 Gemini-powered Chatbot for Botzone
 
 This Node.js webhook uses Gemini (via Vertex AI) to respond to user questions using your website content.
 
