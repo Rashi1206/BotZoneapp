@@ -1,26 +1,13 @@
-options:
-  logging: CLOUD_LOGGING_ONLY
-
 steps:
-  # Step 1: Build Docker image
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '--no-cache', '--pull', '-t', 'gcr.io/mywebsitebot-dkju/zoni', '.']
-    id: Build Docker Image
-
-  # Step 2: Push Docker image to Container Registry
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'gcr.io/mywebsitebot-dkju/zoni']
-    id: Push Docker Image
-
-  # Step 3: Deploy to Cloud Run
-  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    entrypoint: gcloud
+  - name: 'gcr.io/cloud-builders/gcloud'
     args:
-      [
-        'run', 'deploy', 'zoni',
-        '--image', 'gcr.io/mywebsitebot-dkju/zoni',
-        '--platform', 'managed',
-        '--region', 'us-central1',
-        '--allow-unauthenticated'
-      ]
-    id: Deploy to Cloud Run
+      - run
+      - deploy
+      - codegen-webhook
+      - --region=us-central1
+      - --source=.
+      - --entry-point=app
+      - --runtime=python310
+      - --allow-unauthenticated
+
+timeout: '900s'
