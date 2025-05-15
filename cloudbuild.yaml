@@ -6,7 +6,7 @@ steps:
       - codegen-webhook
       - --region=us-central1
       - --source=.
-      - --entry-point=app
+      - --entry-point=main
       - --runtime=python310
       - --allow-unauthenticated
 
