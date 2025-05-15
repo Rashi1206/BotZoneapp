@@ -1,7 +1,8 @@
-FROM node:18
-WORKDIR /usr/src/app
-COPY package*.json ./
-RUN npm install
+FROM python:3.10
+
+WORKDIR /app
 COPY . .
-EXPOSE 3000
-CMD ["node", "index.js"]
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+CMD ["python", "main.py"]
